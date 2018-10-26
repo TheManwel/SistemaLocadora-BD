@@ -4,11 +4,13 @@ import DAO.Conexao;
 import DAO.FuncionarioDAO;
 import java.sql.Connection;
 import javax.swing.JOptionPane;
+import javax.swing.JProgressBar;
 
 public class Login extends javax.swing.JFrame {
     public Login() {
         initComponents();
-        
+        setSize(690, 500);
+        dispose();
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -17,8 +19,9 @@ public class Login extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jPasswordField1 = new javax.swing.JPasswordField();
-        jTextField1 = new javax.swing.JTextField();
+        pfSenha = new javax.swing.JPasswordField();
+        tfUsuario = new javax.swing.JTextField();
+        jProgressBar1 = new javax.swing.JProgressBar();
         jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
@@ -48,19 +51,29 @@ public class Login extends javax.swing.JFrame {
         getContentPane().add(jButton1);
         jButton1.setBounds(220, 250, 110, 40);
 
-        jPasswordField1.setFont(new java.awt.Font("Cracked Johnnie", 0, 10)); // NOI18N
-        jPasswordField1.setText("jPasswordField1");
-        jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
+        pfSenha.setFont(new java.awt.Font("Cracked Johnnie", 0, 10)); // NOI18N
+        pfSenha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jPasswordField1ActionPerformed(evt);
+                pfSenhaActionPerformed(evt);
             }
         });
-        getContentPane().add(jPasswordField1);
-        jPasswordField1.setBounds(350, 200, 130, 30);
-        getContentPane().add(jTextField1);
-        jTextField1.setBounds(350, 160, 130, 30);
+        getContentPane().add(pfSenha);
+        pfSenha.setBounds(350, 200, 130, 30);
 
-        jButton2.setBackground(new java.awt.Color(102, 0, 0));
+        tfUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfUsuarioActionPerformed(evt);
+            }
+        });
+        getContentPane().add(tfUsuario);
+        tfUsuario.setBounds(350, 160, 130, 30);
+
+        jProgressBar1.setBackground(new java.awt.Color(204, 0, 0));
+        jProgressBar1.setForeground(new java.awt.Color(204, 0, 0));
+        getContentPane().add(jProgressBar1);
+        jProgressBar1.setBounds(220, 300, 260, 20);
+
+        jButton2.setBackground(new java.awt.Color(204, 0, 0));
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("SAIR");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -79,9 +92,9 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jPasswordField1ActionPerformed
+    private void pfSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pfSenhaActionPerformed
+       
+    }//GEN-LAST:event_pfSenhaActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Connection con = Conexao.AbrirConexao();
@@ -97,9 +110,9 @@ public class Login extends javax.swing.JFrame {
                 new Thread(){
                     public void run(){
                         for(int i = 0; i< 101; i++){
-                            jProgressBar.setValue(i);
+                            jProgressBar1.setValue(i);
                             try{
-                                thread.sleeo(35);
+                                Thread.sleep(35);
                             }catch (Exception ex){
                                 ex.getMessage();
                                 
@@ -120,6 +133,10 @@ public class Login extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void tfUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfUsuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfUsuarioActionPerformed
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -158,7 +175,8 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JProgressBar jProgressBar1;
+    private javax.swing.JPasswordField pfSenha;
+    private javax.swing.JTextField tfUsuario;
     // End of variables declaration//GEN-END:variables
 }
