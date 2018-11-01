@@ -2,6 +2,7 @@ package modelo;
 
 public class Categoria {
     private int codigo;
+    private String nome;
 
     public void setCodigo(int codigo) {
         this.codigo = codigo;
@@ -18,5 +19,5 @@ public class Categoria {
     public String getNome() {
         return nome;
     }
-    private String nome;
+    
 }
