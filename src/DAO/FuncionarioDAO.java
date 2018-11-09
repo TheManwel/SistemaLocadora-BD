@@ -10,7 +10,7 @@ public class FuncionarioDAO extends ExeculteSQL {
     public boolean Logar(String login, String senha){
         boolean finalResult = false;
         try{
-            String consulta = "select login, senha from funcionario" + "wherw login = '"+login+"'and seha = '"+senha+"'";
+            String consulta = "select login, senha from funcionario" + " where login = '" +login+ "' and senha = '" +senha+ "'";
             PreparedStatement ps = getCon().prepareStatement(consulta);
             ResultSet rs = ps.executeQuery();
             

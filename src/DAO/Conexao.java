@@ -9,10 +9,10 @@ public class Conexao {
         try{
             Class.forName("com.mysql.jdbc.Driver");
             String url = "jdbc:mysql://localhost/locadoras";
-            con = DriverManager.getConnection(url, "qwe", "");
+            con = DriverManager.getConnection(url, "root", "");
             
         }catch(Exception e){
-            JOptionPane.showMessageDialog(null, "Erro na conexâo com o Banco de Dados!","Video Locadora", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro na conexão com o Banco de Dados!","Video Locadora", JOptionPane.ERROR_MESSAGE);
             e.getMessage();  
         }
         return con;

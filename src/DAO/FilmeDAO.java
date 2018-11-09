@@ -5,10 +5,22 @@
  */
 package DAO;
 
+import java.sql.Connection;
+import java.util.List;
+import modelo.Categoria;
+
 /**
  *
  * @author phaar
  */
 public class FilmeDAO {
+
+    public FilmeDAO(Connection con) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public List<Categoria> ListarComboCategoria() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }
