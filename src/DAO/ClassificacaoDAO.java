@@ -104,7 +104,7 @@ public class ClassificacaoDAO extends ExeculteSQL {
             }
     }
     public List<Classificacao> Persquisar_Cod_Classificacao(int cod){
-        String sql = "Select idclassificaccao, nome, RG, CPF, Telefone, Email" + "from cliente where nome idcliente = '" + cod + "'";
+        String sql = "Select idclassificaccao, nome, preco" + "from cliente where nome idclassificaccao = '" + cod + "'";
          List<Classificacao> lista = new ArrayList<>();
         try{
             PreparedStatement ps = getCon().prepareStatement(sql);
@@ -194,5 +194,38 @@ public class ClassificacaoDAO extends ExeculteSQL {
         }
     }
     
+     public String Excluir_Classificaccao(Cliente a ){
+        String sql = "delete from classificacao where idclassificaccao = ? and nome = ?";
+        
+        try{
+            PreparedStatement ps = getCon().prepareStatement(sql);
+            ps.setInt(1, a.getCodigo());
+            ps.setString(2, a.getNome());
+            if(ps.executeUpdate() > 0){
+                return "Excluir com sucesso.";
+            }else{
+                return "Erro ao excluir"; 
+            }
+        }catch(SQLException e){
+            return e.getMessage();
+        }
+    }
+    
+    public String Alterar_Classificacao(Classificacao a){
+        String sql = "update classificaccao set idclassificaccao = ?, preco = ? and nome = ? where idclassificaccao = ? ";
+        try{
+            PreparedStatement ps = getCon().prepareStatement(sql);
+            ps.setString(1, a.getNome());
+            ps.setDouble(2, a.getPreco());
+            ps.setInt(3, a.getCodigo());
+            if(ps.executeUpdate() > 0){
+                return "Atualizado com sucesso.";
+            }else{
+                return "Erro ao Atualizar";
+            }
+        }catch(SQLException e){
+            return e.getMessage();
+        }
+    }
     
 }
