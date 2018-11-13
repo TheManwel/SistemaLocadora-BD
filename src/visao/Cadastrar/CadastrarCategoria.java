@@ -16,6 +16,9 @@ public class CadastrarCategoria extends javax.swing.JFrame {
      */
     public CadastrarCategoria() {
         initComponents();
+        setSize(350, 250);
+        setLocationRelativeTo(this);
+        setVisible(true);
     }
 
     /**

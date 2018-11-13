@@ -16,6 +16,7 @@ public class CadastrarClassificacao extends javax.swing.JFrame {
      */
     public CadastrarClassificacao() {
         initComponents();
+        
     }
 
     /**

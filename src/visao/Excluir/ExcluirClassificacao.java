@@ -5,24 +5,27 @@
  */
 package visao.Excluir;
 
+import DAO.ClassificacaoDAO;
 import DAO.ClienteDAO;
 import DAO.Conexao;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import modelo.Classificacao;
 import modelo.Cliente;
+import modelo.DVD;
 
 /**
  *
  * @author MANUEL GUSTAVO
  */
-public class ExcluirCliente extends javax.swing.JFrame {
+public class ExcluirClassificacao extends javax.swing.JFrame {
 
     /**
-     * Creates new form ExcluirCliente
+     * Creates new form ExcluirClassificacao
      */
-    public ExcluirCliente() {
+    public ExcluirClassificacao() {
         initComponents();
         setSize(350, 250);
         setLocationRelativeTo(this);
@@ -32,12 +35,12 @@ public class ExcluirCliente extends javax.swing.JFrame {
     
     private void AtualizaCombo(){
         Connection con = Conexao.AbrirConexao();
-        ClienteDAO sql = new ClienteDAO(con);
-        List<Cliente> lista = new ArrayList<>();
-        lista = sql.ListarComboCliente();
+        ClassificacaoDAO sql = new ClassificacaoDAO(con);
+        List<Classificacao> lista = new ArrayList<>();
+        lista = sql.ListarComboClassificacao();
         jCB_Nome.addItem("");
         
-        for(Cliente b : lista){
+        for(Classificacao b : lista){
             jCB_Nome.addItem(b.getNome());
         }
         Conexao.FecharConexao(con);
@@ -52,30 +55,29 @@ public class ExcluirCliente extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jTF_codigo = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
         jCB_Nome = new javax.swing.JComboBox<>();
-        jTF_codigo = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        btExcluir = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(null);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel2.setFont(new java.awt.Font("Star Jedi", 1, 14)); // NOI18N
-        jLabel2.setText("excluir cliente");
+        jLabel2.setText("excluir classificacao");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(85, Short.MAX_VALUE)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 48, 48))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(57, 57, 57)
+                .addComponent(jLabel2)
+                .addContainerGap(53, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -85,53 +87,78 @@ public class ExcluirCliente extends javax.swing.JFrame {
                 .addContainerGap(22, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 315, 59);
-
-        jLabel1.setText("Nome:");
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(20, 70, 31, 30);
-
         jCB_Nome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCB_NomeActionPerformed(evt);
             }
         });
-        getContentPane().add(jCB_Nome);
-        jCB_Nome.setBounds(100, 70, 160, 30);
-        getContentPane().add(jTF_codigo);
-        jTF_codigo.setBounds(60, 70, 30, 30);
 
         jButton1.setText("CANCELAR");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton1);
-        jButton1.setBounds(160, 140, 100, 23);
 
-        btExcluir.setText("EXCLUIR");
-        btExcluir.addActionListener(new java.awt.event.ActionListener() {
+        jButton2.setText("EXCLUIR");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btExcluirActionPerformed(evt);
+                jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(btExcluir);
-        btExcluir.setBounds(50, 140, 90, 23);
+
+        jLabel1.setText("Nome:");
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 331, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(20, 20, 20)
+                            .addComponent(jLabel1)
+                            .addGap(9, 9, 9)
+                            .addComponent(jTF_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(10, 10, 10)
+                            .addComponent(jCB_Nome, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(50, 50, 50)
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(20, 20, 20)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 169, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(11, 11, 11)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTF_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jCB_Nome, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(40, 40, 40)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jButton2)
+                        .addComponent(jButton1))
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jCB_NomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCB_NomeActionPerformed
         Connection con = Conexao.AbrirConexao();
-        ClienteDAO sql = new ClienteDAO(con);
-        List<Cliente> lista = new ArrayList<>();
+        ClassificacaoDAO sql = new ClassificacaoDAO(con);
+        List<Classificacao> lista = new ArrayList<>();
         String nome = jCB_Nome.getSelectedItem().toString();
         
-        lista = sql.ConsultaCodigoCliente(nome);
+        lista = sql.ConsultaCodigoClassificacao(nome);
         
-        for(Cliente b : lista){
+        for(Classificacao b : lista){
             int a = b.getCodigo();
             jTF_codigo.setText("" + a);
             
@@ -139,29 +166,26 @@ public class ExcluirCliente extends javax.swing.JFrame {
         Conexao.FecharConexao(con);
     }//GEN-LAST:event_jCB_NomeActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         String codigo = jTF_codigo.getText();
         String nome = jCB_Nome.getSelectedItem().toString();
         
         Connection con = Conexao.AbrirConexao();
-        ClienteDAO sql = new ClienteDAO(con);
-        Cliente a = new Cliente();
+        ClassificacaoDAO sql = new ClassificacaoDAO(con);
+        Classificacao a = new Classificacao();
         if(nome.equals("")){
             int b = JOptionPane.showConfirmDialog(null, "Deseja realmente excluir" + " \n ( " + codigo + ") ( " +nome+ " ) ", "Video Locadora", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             if(b == 0){
             int cod = Integer.parseInt(codigo);
             a.setNome(nome);
             a.setCodigo(cod);
-            sql.Excluir_Cliente(a);
+            sql.Excluir_Classificaccao(a);
             Conexao.FecharConexao(con);
             dispose();
         }
         }
-    }//GEN-LAST:event_btExcluirActionPerformed
+
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -180,27 +204,27 @@ public class ExcluirCliente extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ExcluirCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ExcluirClassificacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ExcluirCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ExcluirClassificacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ExcluirCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ExcluirClassificacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ExcluirCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ExcluirClassificacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ExcluirCliente().setVisible(true);
+                new ExcluirClassificacao().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btExcluir;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<String> jCB_Nome;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

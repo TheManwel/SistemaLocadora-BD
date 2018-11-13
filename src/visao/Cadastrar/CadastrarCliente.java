@@ -1,9 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package visao.Cadastrar;
+
+import DAO.ClienteDAO;
+import DAO.Conexao;
+import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import modelo.Cliente;
 
 /**
  *
@@ -11,16 +15,16 @@ package visao.Cadastrar;
  */
 public class CadastrarCliente extends javax.swing.JFrame {
 
-    /**
-     * Creates new form CadastrarCliente
-     */
+
     public CadastrarCliente() {
         initComponents();
-        setSize(678, 450);
+        setSize(678, 530);    
         setLocationRelativeTo(this);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        
     }
 
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -38,20 +42,16 @@ public class CadastrarCliente extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jTF_RG = new javax.swing.JFormattedTextField();
-        jTF_CPF = new javax.swing.JFormattedTextField();
         jTF_Nome = new javax.swing.JTextField();
         jTF_NumeroCliente = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jTF_Nascimento = new javax.swing.JTextField();
-        jTF_Telefone = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jTF_Numero = new javax.swing.JTextField();
         jTF_Rua = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        jTF_CEP = new javax.swing.JTextField();
         jTF_Bairro = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         jTF_Email = new javax.swing.JTextField();
@@ -59,6 +59,10 @@ public class CadastrarCliente extends javax.swing.JFrame {
         jToggleButton1 = new javax.swing.JToggleButton();
         jToggleButton2 = new javax.swing.JToggleButton();
         btSalvar = new javax.swing.JToggleButton();
+        jTF_Nascimento = new javax.swing.JFormattedTextField();
+        jTF_CPF = new javax.swing.JFormattedTextField();
+        jTF_Telefone = new javax.swing.JFormattedTextField();
+        jTF_CEP = new javax.swing.JFormattedTextField();
 
         jLabel11.setText("BAIRRO:");
 
@@ -84,7 +88,7 @@ public class CadastrarCliente extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1);
@@ -92,73 +96,61 @@ public class CadastrarCliente extends javax.swing.JFrame {
 
         jLabel2.setText("CEP:");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(370, 250, 60, 20);
+        jLabel2.setBounds(380, 280, 60, 30);
 
         jLabel3.setText("Nº DO CLIENTE:");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(40, 100, 100, 20);
+        jLabel3.setBounds(40, 80, 100, 30);
 
         jLabel4.setText("NOME:");
         getContentPane().add(jLabel4);
-        jLabel4.setBounds(40, 130, 100, 20);
+        jLabel4.setBounds(40, 120, 100, 30);
 
         jLabel5.setText("RG:");
         getContentPane().add(jLabel5);
-        jLabel5.setBounds(40, 160, 50, 20);
-
-        jTF_RG.setText("'    -");
+        jLabel5.setBounds(40, 160, 50, 30);
         getContentPane().add(jTF_RG);
-        jTF_RG.setBounds(80, 160, 210, 20);
-
-        jTF_CPF.setText("   .   .  -");
-        getContentPane().add(jTF_CPF);
-        jTF_CPF.setBounds(360, 160, 170, 20);
+        jTF_RG.setBounds(80, 160, 210, 30);
         getContentPane().add(jTF_Nome);
-        jTF_Nome.setBounds(80, 130, 450, 20);
+        jTF_Nome.setBounds(80, 120, 450, 30);
         getContentPane().add(jTF_NumeroCliente);
-        jTF_NumeroCliente.setBounds(130, 100, 60, 20);
+        jTF_NumeroCliente.setBounds(130, 80, 60, 30);
 
         jLabel6.setText("CPF:");
         getContentPane().add(jLabel6);
-        jLabel6.setBounds(320, 160, 40, 20);
+        jLabel6.setBounds(320, 160, 40, 30);
 
         jLabel7.setText("TELEFONE:");
         getContentPane().add(jLabel7);
-        jLabel7.setBounds(40, 190, 70, 20);
-        getContentPane().add(jTF_Nascimento);
-        jTF_Nascimento.setBounds(410, 190, 120, 20);
-        getContentPane().add(jTF_Telefone);
-        jTF_Telefone.setBounds(110, 190, 140, 20);
+        jLabel7.setBounds(40, 200, 70, 30);
 
         jLabel8.setText("DATA DE NASCIMENTO:");
         getContentPane().add(jLabel8);
-        jLabel8.setBounds(270, 190, 140, 20);
+        jLabel8.setBounds(270, 200, 140, 30);
 
         jLabel9.setText("RUA:");
         getContentPane().add(jLabel9);
-        jLabel9.setBounds(40, 220, 50, 20);
+        jLabel9.setBounds(40, 240, 50, 30);
         getContentPane().add(jTF_Numero);
-        jTF_Numero.setBounds(430, 220, 100, 20);
+        jTF_Numero.setBounds(430, 240, 100, 30);
         getContentPane().add(jTF_Rua);
-        jTF_Rua.setBounds(80, 220, 310, 20);
+        jTF_Rua.setBounds(80, 240, 310, 30);
 
         jLabel10.setText("Nº:");
         getContentPane().add(jLabel10);
-        jLabel10.setBounds(410, 220, 30, 20);
+        jLabel10.setBounds(410, 240, 30, 30);
 
         jLabel12.setText("EMAIL:");
         getContentPane().add(jLabel12);
-        jLabel12.setBounds(40, 280, 60, 20);
-        getContentPane().add(jTF_CEP);
-        jTF_CEP.setBounds(400, 250, 130, 20);
+        jLabel12.setBounds(40, 320, 60, 30);
         getContentPane().add(jTF_Bairro);
-        jTF_Bairro.setBounds(100, 250, 260, 20);
+        jTF_Bairro.setBounds(100, 280, 260, 30);
 
         jLabel13.setText("BAIRRO:");
         getContentPane().add(jLabel13);
-        jLabel13.setBounds(40, 250, 60, 20);
+        jLabel13.setBounds(40, 280, 60, 30);
         getContentPane().add(jTF_Email);
-        jTF_Email.setBounds(90, 280, 440, 20);
+        jTF_Email.setBounds(90, 320, 440, 30);
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -181,13 +173,13 @@ public class CadastrarCliente extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(28, 28, 28)
+                .addGap(29, 29, 29)
                 .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                 .addComponent(btSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(44, 44, 44)
                 .addComponent(jToggleButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30))
+                .addGap(29, 29, 29))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -201,7 +193,39 @@ public class CadastrarCliente extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel2);
-        jPanel2.setBounds(10, 320, 640, 99);
+        jPanel2.setBounds(10, 370, 640, 99);
+
+        try {
+            jTF_Nascimento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        getContentPane().add(jTF_Nascimento);
+        jTF_Nascimento.setBounds(390, 200, 140, 30);
+
+        try {
+            jTF_CPF.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        getContentPane().add(jTF_CPF);
+        jTF_CPF.setBounds(360, 160, 170, 30);
+
+        try {
+            jTF_Telefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)#####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        getContentPane().add(jTF_Telefone);
+        jTF_Telefone.setBounds(100, 200, 140, 30);
+
+        try {
+            jTF_CEP.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        getContentPane().add(jTF_CEP);
+        jTF_CEP.setBounds(410, 280, 120, 30);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -213,9 +237,49 @@ public class CadastrarCliente extends javax.swing.JFrame {
            String rua = jTF_Rua.getText();
            String Numero = jTF_Numero.getText();
            String bairro = jTF_Bairro.getText();
+           String email = jTF_Email.getText();
            String fone = jTF_Telefone.getText();
            String cpf = jTF_CPF.getText();
            String rg = jTF_RG.getText();
+           if(nome.equals("") || nascimento.equals("") || cep.equals("") || rua.equals("") || Numero.equals("") || bairro.equals("") || fone.equals("") || cpf.equals("") || rg.equals("")){
+               JOptionPane.showMessageDialog(null, "nenhum campo pode esta vazio", "Video Locadora", JOptionPane.WARNING_MESSAGE);
+               
+           }else{
+               Connection con = Conexao.AbrirConexao();
+               ClienteDAO sql = new ClienteDAO(con);
+               int n = Integer.parseInt(Numero);
+               Cliente a = new Cliente();
+               
+               a.setNome(nome);
+               a.setNascimento(nascimento);
+               a.setCEP(cep);
+               a.setNumero(n);
+               a.setBairro(bairro);
+               a.setEmail(email);
+               a.setTelefone(fone);
+               a.setCPF(cpf);
+               a.setRG(rg);
+               
+               sql.Inserir_Cliente(a);
+               Conexao.FecharConexao(con);
+               
+               jTF_Nome.setText("");
+               jTF_CEP.setText("");
+               jTF_Numero.setText("");
+               jTF_Bairro.setText("");
+               jTF_Email.setText("");
+               jTF_Telefone.setText("");
+               jTF_Rua.setText("");
+               jTF_Nascimento.setText("");
+               jTF_RG.setText("");
+               jTF_CPF.setText("");
+               JOptionPane.showMessageDialog(null, "Cadastro realizado com Sucesso", "Video Locadora", JOptionPane.INFORMATION_MESSAGE);
+               dispose();
+               
+               
+               
+               
+           }
     }//GEN-LAST:event_btSalvarActionPerformed
 
     /**
@@ -271,16 +335,16 @@ public class CadastrarCliente extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField jTF_Bairro;
-    private javax.swing.JTextField jTF_CEP;
+    private javax.swing.JFormattedTextField jTF_CEP;
     private javax.swing.JFormattedTextField jTF_CPF;
     private javax.swing.JTextField jTF_Email;
-    private javax.swing.JTextField jTF_Nascimento;
+    private javax.swing.JFormattedTextField jTF_Nascimento;
     private javax.swing.JTextField jTF_Nome;
     private javax.swing.JTextField jTF_Numero;
     private javax.swing.JTextField jTF_NumeroCliente;
     private javax.swing.JFormattedTextField jTF_RG;
     private javax.swing.JTextField jTF_Rua;
-    private javax.swing.JTextField jTF_Telefone;
+    private javax.swing.JFormattedTextField jTF_Telefone;
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JToggleButton jToggleButton2;
     // End of variables declaration//GEN-END:variables
