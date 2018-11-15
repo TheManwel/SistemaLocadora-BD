@@ -201,7 +201,7 @@ public class CadastrarCliente extends javax.swing.JFrame {
             ex.printStackTrace();
         }
         getContentPane().add(jTF_Nascimento);
-        jTF_Nascimento.setBounds(390, 200, 140, 30);
+        jTF_Nascimento.setBounds(410, 200, 120, 30);
 
         try {
             jTF_CPF.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
@@ -209,7 +209,7 @@ public class CadastrarCliente extends javax.swing.JFrame {
             ex.printStackTrace();
         }
         getContentPane().add(jTF_CPF);
-        jTF_CPF.setBounds(360, 160, 170, 30);
+        jTF_CPF.setBounds(370, 160, 160, 30);
 
         try {
             jTF_Telefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)#####-####")));
@@ -217,7 +217,7 @@ public class CadastrarCliente extends javax.swing.JFrame {
             ex.printStackTrace();
         }
         getContentPane().add(jTF_Telefone);
-        jTF_Telefone.setBounds(100, 200, 140, 30);
+        jTF_Telefone.setBounds(110, 200, 130, 30);
 
         try {
             jTF_CEP.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
@@ -231,7 +231,7 @@ public class CadastrarCliente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
-           String nome = jTF_NumeroCliente.getText();
+           //String nome = jTF_NumeroCliente.getText();
            String nascimento = jTF_Nascimento.getText();
            String cep = jTF_CEP.getText();
            String rua = jTF_Rua.getText();
@@ -241,7 +241,7 @@ public class CadastrarCliente extends javax.swing.JFrame {
            String fone = jTF_Telefone.getText();
            String cpf = jTF_CPF.getText();
            String rg = jTF_RG.getText();
-           if(nome.equals("") || nascimento.equals("") || cep.equals("") || rua.equals("") || Numero.equals("") || bairro.equals("") || fone.equals("") || cpf.equals("") || rg.equals("")){
+           if(nascimento.equals("") || cep.equals("") || rua.equals("") || Numero.equals("") || bairro.equals("") || fone.equals("") || cpf.equals("") || rg.equals("")){
                JOptionPane.showMessageDialog(null, "nenhum campo pode esta vazio", "Video Locadora", JOptionPane.WARNING_MESSAGE);
                
            }else{
@@ -250,7 +250,7 @@ public class CadastrarCliente extends javax.swing.JFrame {
                int n = Integer.parseInt(Numero);
                Cliente a = new Cliente();
                
-               a.setNome(nome);
+               //a.setNome(nome);
                a.setNascimento(nascimento);
                a.setCEP(cep);
                a.setNumero(n);
@@ -263,7 +263,7 @@ public class CadastrarCliente extends javax.swing.JFrame {
                sql.Inserir_Cliente(a);
                Conexao.FecharConexao(con);
                
-               jTF_Nome.setText("");
+               //jTF_Nome.setText("");
                jTF_CEP.setText("");
                jTF_Numero.setText("");
                jTF_Bairro.setText("");

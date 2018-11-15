@@ -5,6 +5,14 @@
  */
 package visao.Cadastrar;
 
+import DAO.CategoriaDAO;
+import DAO.ClienteDAO;
+import DAO.Conexao;
+import java.sql.Connection;
+import javax.swing.JOptionPane;
+import modelo.Categoria;
+import modelo.Cliente;
+
 /**
  *
  * @author MANUEL GUSTAVO
@@ -33,9 +41,9 @@ public class CadastrarCategoria extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        jTF_Nome = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        jTF_Cod = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -72,18 +80,23 @@ public class CadastrarCategoria extends javax.swing.JFrame {
         jLabel2.setText("NOME:");
         getContentPane().add(jLabel2);
         jLabel2.setBounds(60, 110, 70, 30);
-        getContentPane().add(jTextField1);
-        jTextField1.setBounds(120, 110, 260, 30);
+        getContentPane().add(jTF_Nome);
+        jTF_Nome.setBounds(120, 110, 260, 30);
 
         jLabel3.setText("CÓDIGO:");
         getContentPane().add(jLabel3);
         jLabel3.setBounds(60, 70, 70, 30);
-        getContentPane().add(jTextField2);
-        jTextField2.setBounds(120, 70, 80, 30);
+        getContentPane().add(jTF_Cod);
+        jTF_Cod.setBounds(120, 70, 80, 30);
 
         jPanel2.setBackground(new java.awt.Color(153, 153, 153));
 
         jButton1.setText("CADASTRAR");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("CANCELAR");
 
@@ -118,6 +131,34 @@ public class CadastrarCategoria extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+            String nome = jTF_Nome.getText();
+            String codigo = jTF_Cod.getText();
+           
+           if(nome.equals("") || codigo.equals("")){
+               JOptionPane.showMessageDialog(null, "nenhum campo pode esta vazio", "Video Locadora", JOptionPane.WARNING_MESSAGE);
+               
+           }else{
+               Connection con = Conexao.AbrirConexao();
+               CategoriaDAO sql = new CategoriaDAO(con);
+               int n = Integer.parseInt(nome);
+               Categoria a = new Categoria();
+               
+               a.setNome(nome);
+               a.setCodigo(WIDTH);
+               
+               
+               sql.Inserir_Categoria(a);
+               Conexao.FecharConexao(con);
+               
+               jTF_Nome.setText("");
+               jTF_Cod.setText("");
+              
+               JOptionPane.showMessageDialog(null, "Cadastro realizado com Sucesso", "Video Locadora", JOptionPane.INFORMATION_MESSAGE);
+               dispose();
+           }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -163,7 +204,8 @@ public class CadastrarCategoria extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTF_Cod;
+    private javax.swing.JTextField jTF_Nome;
     // End of variables declaration//GEN-END:variables
 }
+

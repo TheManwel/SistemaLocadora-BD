@@ -35,6 +35,9 @@ public class CadastrarFilme extends javax.swing.JFrame {
      */
     public CadastrarFilme() {
         initComponents();
+        setSize(678, 530);    
+        setLocationRelativeTo(this);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         AtualizaCombo();
         AtualizaCombo2();
         
@@ -341,7 +344,10 @@ public class CadastrarFilme extends javax.swing.JFrame {
            String Titulo = jTF_Filme.getText();
            String ano = jTF_Ano.getText();
            String Duracao = jTF_Duracao.getText();
-            if(Titulo.equals("") || ano.equals("") || Duracao.equals("")){
+           String Categoria = jTF_codigo.getText();
+           String classificacao = jTF_codigo2.getText();
+           String capa = tfCapa.getText();
+            if(Titulo.equals("") || ano.equals("") || Duracao.equals("") || Categoria.equals("") || classificacao.equals("") || capa.equals("")){
                JOptionPane.showMessageDialog(null, "nenhum campo pode esta vazio", "Video Locadora", JOptionPane.WARNING_MESSAGE);
                
            }else{
@@ -350,8 +356,11 @@ public class CadastrarFilme extends javax.swing.JFrame {
                Filme a = new Filme();
                
                a.setTitulo(Titulo);
-               a.setAno(ano);
+               a.setAno(ABORT);
                a.setDuracao(Duracao);
+               a.setCod_categoria(HAND_CURSOR);
+               a.setCod_classificacao(CROSSHAIR_CURSOR);
+               a.setCapa(capa);
               
                sql.Inserir_Filme(a);
                Conexao.FecharConexao(con);

@@ -7,12 +7,14 @@ package visao.alterar;
 
 import DAO.Conexao;
 import DAO.DVDDAO;
+import DAO.FilmeDAO;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import modelo.DVD;
+import modelo.Filme;
 
 /**
  *
@@ -25,22 +27,24 @@ public class AlterarFilme extends javax.swing.JFrame {
      */
     public AlterarFilme() {
         initComponents();
+        setSize(678, 530);    
+        setLocationRelativeTo(this);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
     
     private void InserirDados(int cod){
         
         Connection con = Conexao.AbrirConexao();
-        DVDDAO sql = new DVDDAO(con);
-        List<DVD> lista = new ArrayList<>();
-        lista = sql.CapturarDVD(cod);
+        FilmeDAO sql = new FilmeDAO(con);
+        List<Filme> lista = new ArrayList<>();
+        lista = sql.CapturarFilme(cod);
         
-        for(DVD a : lista){
+        for(Filme a : lista){
             
             jTF_Codigo.setText("" + a.getCodigo());
             jTF_Titulo.setText("" + a.getTitulo());
-            jTF_Valor.setText("" + a.getValor());
-            jTF_Categoria.setText("" + a.getCategoria());
-            jTF_Classificacao.setText("" + a.getClassificacao());
+            jTF_Categoria.setText("" + a.getCod_categoria());
+            jTF_Classificacao.setText("" + a.getCod_classificacao());
             jLbFoto.setIcon(new ImageIcon(""));
         }
         
@@ -63,8 +67,6 @@ public class AlterarFilme extends javax.swing.JFrame {
         btOK = new javax.swing.JButton();
         jTF_Titulo = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jTF_Valor = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -86,7 +88,7 @@ public class AlterarFilme extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("Star Jedi", 1, 18)); // NOI18N
-        jLabel1.setText("Alterar Dvd");
+        jLabel1.setText("Alterar filme");
 
         jLabel3.setText("CÓDIGO:");
 
@@ -136,12 +138,6 @@ public class AlterarFilme extends javax.swing.JFrame {
         getContentPane().add(jLabel4);
         jLabel4.setBounds(50, 120, 70, 30);
 
-        jLabel2.setText("PREÇO:");
-        getContentPane().add(jLabel2);
-        jLabel2.setBounds(50, 200, 70, 30);
-        getContentPane().add(jTF_Valor);
-        jTF_Valor.setBounds(120, 200, 183, 30);
-
         jPanel2.setBackground(new java.awt.Color(153, 153, 153));
 
         jButton1.setText("ALTERAR");
@@ -179,7 +175,7 @@ public class AlterarFilme extends javax.swing.JFrame {
 
         jLabel5.setText("CATEGORIA:");
         getContentPane().add(jLabel5);
-        jLabel5.setBounds(50, 240, 70, 30);
+        jLabel5.setBounds(50, 200, 80, 30);
 
         jTF_Categoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -187,13 +183,13 @@ public class AlterarFilme extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jTF_Categoria);
-        jTF_Categoria.setBounds(120, 240, 183, 30);
+        jTF_Categoria.setBounds(120, 200, 183, 30);
 
         jLabel6.setText("CÓDIGO:");
         getContentPane().add(jLabel6);
-        jLabel6.setBounds(50, 320, 60, 30);
+        jLabel6.setBounds(50, 280, 60, 30);
         getContentPane().add(jTF_Classificacao);
-        jTF_Classificacao.setBounds(140, 280, 160, 30);
+        jTF_Classificacao.setBounds(140, 240, 160, 30);
 
         jLabel7.setText("CÓDIGO:");
         getContentPane().add(jLabel7);
@@ -207,13 +203,13 @@ public class AlterarFilme extends javax.swing.JFrame {
 
         jLabel9.setText("CAPA");
         getContentPane().add(jLabel9);
-        jLabel9.setBounds(520, 120, 27, 14);
+        jLabel9.setBounds(520, 120, 60, 14);
 
         jLabel8.setText("CLASSIFICAÇÃO:");
         getContentPane().add(jLabel8);
-        jLabel8.setBounds(50, 280, 100, 30);
+        jLabel8.setBounds(50, 240, 100, 30);
         getContentPane().add(jTF_Codigo);
-        jTF_Codigo.setBounds(120, 320, 180, 30);
+        jTF_Codigo.setBounds(120, 280, 180, 30);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -225,33 +221,18 @@ public class AlterarFilme extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Digite o código do DVD", "Video Locadora", JOptionPane.WARNING_MESSAGE);
         }else{
             
-            DVDDAO sql = new DVDDAO(con);
+            FilmeDAO sql = new FilmeDAO(con);
             int cod = Integer.parseInt(pesquisa);
-            if(sql.Testar_DVD(cod) == false){
+            if(sql.Testar_Filme(cod) == false){
             JOptionPane.showMessageDialog(null, "Código do DVD não Encontrado", "Video Locadora", JOptionPane.ERROR_MESSAGE);
             jTF_CodDVD.setText("");
             jTF_Titulo.setText("");
-            jTF_Valor.setText("");
             jTF_Categoria.setText("");
             jTF_Classificacao.setText("");
             jLbFoto.setIcon(new ImageIcon(""));
             jTF_Codigo.setText("");
         
-        }else if (sql.Testar_Situacao(cod) == false){
-                    JOptionPane.showMessageDialog(null, "o DVD de codigo( "+cod+" )" + " está Emprestado", "Video Locadora", JOptionPane.INFORMATION_MESSAGE );
-                jTF_CodDVD.setText("");
-                jTF_Titulo.setText("");
-            jTF_Valor.setText("");
-            jTF_Categoria.setText("");
-            jTF_Classificacao.setText("");
-            jLbFoto.setIcon(new ImageIcon(""));
-            jTF_Codigo.setText("");
-                }else{
-                    
-                InserirDados(cod);
-                jTF_Codigo.setText(pesquisa);
-                jTF_CodDVD.setText("");
-            }
+        }
         }
         Conexao.FecharConexao(con);
     }//GEN-LAST:event_btOKActionPerformed
@@ -301,7 +282,6 @@ public class AlterarFilme extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -317,7 +297,6 @@ public class AlterarFilme extends javax.swing.JFrame {
     private javax.swing.JTextField jTF_CodDVD;
     private javax.swing.JTextField jTF_Codigo;
     private javax.swing.JTextField jTF_Titulo;
-    private javax.swing.JTextField jTF_Valor;
     private javax.swing.JTextField jTextField5;
     // End of variables declaration//GEN-END:variables
 }

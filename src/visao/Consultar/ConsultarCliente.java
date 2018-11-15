@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package visao.Consultar;
 
 import DAO.ClienteDAO;
@@ -13,43 +8,39 @@ import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import modelo.Cliente;
 
-/**
- *
- * @author MANUEL GUSTAVO
- */
 public class ConsultarCliente extends javax.swing.JFrame {
-
-    /**
-     * Creates new form ConsultarCliente
-     */
+    
     public ConsultarCliente() {
         initComponents();
+        setSize(900, 490);  
+        setLocationRelativeTo(this);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
     
     public void AtualizaTable(){
-         Connection con = Conexao.AbrirConexao();
-         ClienteDAO bd = new ClienteDAO(con);
-         List<Cliente> lista = new ArrayList<>();
-         lista = bd.ListarCliente();
-         DefaultTableModel tbm = (DefaultTableModel) jTable.getModel();
+        Connection con = Conexao.AbrirConexao();
+        ClienteDAO bd = new ClienteDAO(con);
+        List<Cliente> lista = new ArrayList<>();
+        lista = bd.ListarCliente();
+        DefaultTableModel tbm = (DefaultTableModel) jTable.getModel();
     
     while(tbm.getRowCount() > 0){
         tbm.removeRow(0);
     }
     
-    int i = 0;
-    for (Cliente tab : lista){
-        tbm.addRow(new String[i]);
-        jTable.setValueAt(tab.getCodigo(), i, 0);
-        jTable.setValueAt(tab.getNome(), i, 1);
-        jTable.setValueAt(tab.getRG(), i, 2);
-        jTable.setValueAt(tab.getCPF(), i, 3);
-        jTable.setValueAt(tab.getTelefone(), i, 4);
-        jTable.setValueAt(tab.getEmail(), i, 5);
-        i++;
-}
-Conexao.FecharConexao(con);
-}
+        int i = 0;
+        for (Cliente tab : lista){
+            tbm.addRow(new String[i]);
+            jTable.setValueAt(tab.getCodigo(), i, 0);
+            jTable.setValueAt(tab.getNome(), i, 1);
+            jTable.setValueAt(tab.getRG(), i, 2);
+            jTable.setValueAt(tab.getCPF(), i, 3);
+            jTable.setValueAt(tab.getTelefone(), i, 4);
+            jTable.setValueAt(tab.getEmail(), i, 5);
+            i++;
+        }
+        Conexao.FecharConexao(con);
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -69,7 +60,7 @@ Conexao.FecharConexao(con);
 
         jLabel1.setText("Pesquisa por nome:");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(25, 11, 103, 40);
+        jLabel1.setBounds(25, 11, 140, 40);
         getContentPane().add(jTextField1);
         jTextField1.setBounds(127, 15, 200, 30);
 
@@ -81,7 +72,7 @@ Conexao.FecharConexao(con);
 
         jLabel2.setText("Pesquisa por Código:");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(420, 10, 103, 30);
+        jLabel2.setBounds(410, 10, 120, 30);
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/lupa1.png"))); // NOI18N
         getContentPane().add(jButton3);
@@ -89,7 +80,7 @@ Conexao.FecharConexao(con);
 
         jButton2.setText("TODOS");
         getContentPane().add(jButton2);
-        jButton2.setBounds(790, 10, 67, 23);
+        jButton2.setBounds(777, 10, 80, 23);
 
         jTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

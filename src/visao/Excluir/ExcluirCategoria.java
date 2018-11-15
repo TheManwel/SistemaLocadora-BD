@@ -29,6 +29,7 @@ public class ExcluirCategoria extends javax.swing.JFrame {
         setSize(350, 250);
         setLocationRelativeTo(this);
         setVisible(true);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
     
     private void AtualizaCombo(){

@@ -5,6 +5,21 @@
  */
 package visao.Cadastrar;
 
+import DAO.CategoriaDAO;
+import DAO.Conexao;
+import DAO.DVDDAO;
+import DAO.FilmeDAO;
+import static java.awt.Frame.CROSSHAIR_CURSOR;
+import static java.awt.Frame.HAND_CURSOR;
+import static java.awt.image.ImageObserver.ABORT;
+import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+import modelo.Categoria;
+import modelo.DVD;
+import modelo.Filme;
+
 /**
  *
  * @author MANUEL GUSTAVO
@@ -16,6 +31,21 @@ public class CadastrarDVD extends javax.swing.JFrame {
      */
     public CadastrarDVD() {
         initComponents();
+        setSize(678, 530);    
+        setLocationRelativeTo(this);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+    }
+    public void AtualizaCombo(){
+        Connection con = Conexao.AbrirConexao();
+        FilmeDAO sql = new FilmeDAO(con);
+        List<Filme> lista = new ArrayList<>();
+        lista = sql.ListarComboFilme();
+        jCB_Filme.addItem("");
+        
+        for(Filme b : lista){
+            jCB_Filme.addItem(b.getTitulo());
+        }
+       Conexao.FecharConexao(con);
     }
 
     /**
@@ -35,16 +65,16 @@ public class CadastrarDVD extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
-        jTextField7 = new javax.swing.JTextField();
+        jTF_cod = new javax.swing.JTextField();
+        jCB_Filme = new javax.swing.JComboBox<>();
+        jTF_Situacao = new javax.swing.JTextField();
+        jTF_Filme = new javax.swing.JTextField();
+        jtfdatacompra = new javax.swing.JTextField();
+        jtfprecocompra = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btncad = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -52,7 +82,7 @@ public class CadastrarDVD extends javax.swing.JFrame {
 
         jLabel1.setText("DATA DA COMPRA:");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(250, 170, 100, 30);
+        jLabel1.setBounds(270, 170, 120, 30);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -85,7 +115,7 @@ public class CadastrarDVD extends javax.swing.JFrame {
 
         jLabel3.setText("SITUAÇÃO:");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(220, 90, 60, 30);
+        jLabel3.setBounds(210, 90, 70, 30);
 
         jLabel4.setText("FILME:");
         getContentPane().add(jLabel4);
@@ -93,25 +123,29 @@ public class CadastrarDVD extends javax.swing.JFrame {
 
         jLabel5.setText("PREÇO DA COMPRA:");
         getContentPane().add(jLabel5);
-        jLabel5.setBounds(50, 170, 120, 30);
+        jLabel5.setBounds(50, 170, 130, 30);
 
         jLabel6.setText("CÓDIGO:");
         getContentPane().add(jLabel6);
         jLabel6.setBounds(50, 90, 60, 30);
-        getContentPane().add(jTextField2);
-        jTextField2.setBounds(110, 90, 70, 30);
+        getContentPane().add(jTF_cod);
+        jTF_cod.setBounds(110, 90, 70, 30);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        getContentPane().add(jComboBox1);
-        jComboBox1.setBounds(200, 130, 250, 30);
-        getContentPane().add(jTextField3);
-        jTextField3.setBounds(280, 90, 170, 30);
-        getContentPane().add(jTextField5);
-        jTextField5.setBounds(110, 130, 70, 30);
-        getContentPane().add(jTextField6);
-        jTextField6.setBounds(350, 170, 100, 30);
-        getContentPane().add(jTextField7);
-        jTextField7.setBounds(160, 170, 80, 30);
+        jCB_Filme.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCB_FilmeActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jCB_Filme);
+        jCB_Filme.setBounds(200, 130, 250, 30);
+        getContentPane().add(jTF_Situacao);
+        jTF_Situacao.setBounds(290, 90, 160, 30);
+        getContentPane().add(jTF_Filme);
+        jTF_Filme.setBounds(110, 130, 70, 30);
+        getContentPane().add(jtfdatacompra);
+        jtfdatacompra.setBounds(380, 170, 70, 30);
+        getContentPane().add(jtfprecocompra);
+        jtfprecocompra.setBounds(170, 170, 70, 30);
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/DVD_VIDEO_logo.png"))); // NOI18N
         jLabel7.setText("jLabel7");
@@ -122,7 +156,12 @@ public class CadastrarDVD extends javax.swing.JFrame {
 
         jButton2.setText("CANCELAR");
 
-        jButton3.setText("CADASTRAR");
+        btncad.setText("CADASTRAR");
+        btncad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btncadActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("LIMPAR");
 
@@ -134,7 +173,7 @@ public class CadastrarDVD extends javax.swing.JFrame {
                 .addGap(148, 148, 148)
                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btncad, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -144,7 +183,7 @@ public class CadastrarDVD extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3)
+                    .addComponent(btncad)
                     .addComponent(jButton2)
                     .addComponent(jButton4))
                 .addContainerGap(26, Short.MAX_VALUE))
@@ -155,6 +194,55 @@ public class CadastrarDVD extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jCB_FilmeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCB_FilmeActionPerformed
+        Connection con = Conexao.AbrirConexao();
+        FilmeDAO sql = new FilmeDAO(con);
+        List<Filme> lista = new ArrayList<>();
+        String nome = jCB_Filme.getSelectedItem().toString();
+        
+        lista = sql.ConsultaCodigoFilme(nome);
+        
+        for(Filme b : lista){
+            int a = b.getCodigo();
+            jTF_cod.setText("" + a);
+        }
+        Conexao.FecharConexao(con);
+    }//GEN-LAST:event_jCB_FilmeActionPerformed
+
+    private void btncadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncadActionPerformed
+        String Titulo = jTF_Filme.getText();
+           String situacao = jTF_Situacao.getText();
+           String preco = jtfprecocompra.getText();
+           String data = jtfdatacompra.getText();
+           
+           
+            if(Titulo.equals("") || situacao.equals("") || preco.equals("") || data.equals("")){
+               JOptionPane.showMessageDialog(null, "nenhum campo pode esta vazio", "Video Locadora", JOptionPane.WARNING_MESSAGE);
+               
+           }else{
+               Connection con = Conexao.AbrirConexao();
+               DVDDAO sql = new DVDDAO(con);
+               DVD a = new DVD();
+               
+               //a.setCodigo(WIDTH);
+               a.setCod_filme(ICONIFIED);
+               a.setSituacao(situacao);
+               a.setData_compra(data);
+               a.setPreco(ERROR);
+              
+               sql.Inserir_DVD(a);
+               Conexao.FecharConexao(con);
+               
+               jTF_Filme.setText("");
+               jTF_Situacao.setText("");
+               jtfprecocompra.setText("");
+               jtfdatacompra.setText("");
+               JOptionPane.showMessageDialog(null, "Cadastro realizado com Sucesso", "Video Locadora", JOptionPane.INFORMATION_MESSAGE);
+               dispose();
+               
+           }
+    }//GEN-LAST:event_btncadActionPerformed
 
     /**
      * @param args the command line arguments
@@ -192,10 +280,10 @@ public class CadastrarDVD extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btncad;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jCB_Filme;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -205,11 +293,11 @@ public class CadastrarDVD extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTF_Filme;
+    private javax.swing.JTextField jTF_Situacao;
+    private javax.swing.JTextField jTF_cod;
     private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
+    private javax.swing.JTextField jtfdatacompra;
+    private javax.swing.JTextField jtfprecocompra;
     // End of variables declaration//GEN-END:variables
 }
